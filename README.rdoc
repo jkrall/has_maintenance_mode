@@ -1,0 +1,48 @@
+= HasMaintenanceMode
+
+HasMaintenanceMode is a rails plugin for controlling access to specific controllers, based on a simple config file.
+
+It makes it easy to block access to parts of your site that are undergoing maintenance.  
+With this plugin, you can keep parts of your site up and running, while shutting down access to controller actions 
+that would access your database while it is "under construction".
+
+== Usage
+
+Add the has_maintenance_mode directive to any controller that you want to limit.
+
+  class ApplicationController < ActionController::Base
+
+    has_maintanence_mode :url=>{:controller=>'page', :action=>'under_construction'}
+    
+    ...
+  end
+
+You can also add typical before_filter conditionals:
+
+  class SomethingController < ActionController::Base
+
+    has_maintanence_mode :url=>{:controller=>'page', :action=>'maintenance_show'}, :only=>[:show]
+    
+    ...
+  end
+
+== Configuration
+
+HasMaintenanceMode uses a simple yaml config file:  RAILS_ROOT/config/maintenance_modes.yml
+
+There is an example file in the plugin directory, for reference.
+
+The format is simple... the plugin expects a hash with keys that match the names of the controllers that you are limiting.
+If the value for a key is :under_construction, then the plugin will engage the maintenance mode for the entire controller.
+
+You can also supply a hash of controller actions, and corresponding settings, for the value... ie:
+{ :something_controller => {:show=>:normal, :new=>:under_construction} }
+
+If you want to set all controllers, you can use the :all key... ie:
+{ :all => :normal } or { :all => :under_construction }
+
+
+== Credits
+
+HasMaintenanceMode was created, and is maintained by {Joshua Krall}[http://github.com/jkrall].  More info at {Transparent Development}[http://transfs.com/devblog], the {Transparent Financial Services}[http://transfs.com] development blog.
+

@@ -1,0 +1,20 @@
+#
+# maintenance_mode Config
+# 
+
+#
+# All Controllers with has_maintenance_mode will be limited
+--- 
+:all: :under_construction
+
+# Only a specific controller
+#---
+#:demo_controller: :under_construction
+
+# Specific controller actions
+#--- 
+#:demo_controller: 
+#  :new: :under_construction
+#  :show: :normal
+
+
