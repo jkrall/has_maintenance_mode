@@ -34,7 +34,7 @@ module HasMaintenanceMode
         return true
       end
       
-      self.send(:before_filter, :check_maintenance_mode, :except=>opts[:except], :only=>opts[:only])
+      self.send(:prepend_before_filter, :check_maintenance_mode, :except=>opts[:except], :only=>opts[:only])
     end
     
   end
